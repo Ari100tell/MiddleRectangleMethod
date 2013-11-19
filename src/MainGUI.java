@@ -38,7 +38,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaComparativeResult = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         try {
             jPanel1 =(javax.swing.JPanel)java.beans.Beans.instantiate(getClass().getClassLoader(), "MainGUI_jPanel1");
@@ -62,8 +62,8 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabelResult = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabelActualResult = new javax.swing.JLabel();
+        jLabelAnaliticalResult = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -72,10 +72,10 @@ public class MainGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jTextAreaComparativeResult.setEditable(false);
+        jTextAreaComparativeResult.setColumns(20);
+        jTextAreaComparativeResult.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaComparativeResult);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Подинтегральная функция");
@@ -154,9 +154,9 @@ public class MainGUI extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel1)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -180,11 +180,10 @@ public class MainGUI extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel12.setText("Аналитический результат");
 
-        jLabelResult.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelResult.setText("*");
+        jLabelActualResult.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel14.setText("0.20534708279");
+        jLabelAnaliticalResult.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAnaliticalResult.setName(""); // NOI18N
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -201,8 +200,8 @@ public class MainGUI extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                    .addComponent(jLabelActualResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelAnaliticalResult, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,11 +218,11 @@ public class MainGUI extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jLabelResult))
+                            .addComponent(jLabelActualResult))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel14)))
+                            .addComponent(jLabelAnaliticalResult)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -288,13 +287,26 @@ public class MainGUI extends javax.swing.JFrame {
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
     RectangleMethod rectangleMethod = new RectangleMethod();
-        Double result = rectangleMethod.run(1, 2, 80);
-        jLabelResult.setText(result.toString().substring(0,13));
-        System.out.println();        // TODO add your handling code here:
+        Double actualResult = rectangleMethod.run(1, 2, 80);
+        jLabelActualResult.setText(actualResult.toString().substring(0,13));        
+        Double analiticalResult=0.25*2-0.075*Math.log1p(2*2+0.3)-0.01125/(2*2+0.3);            
+        jTextAreaComparativeResult.append("Точка отрезка"+"\t"+"Фактический результат"+"\t"+"Аналитический результат"+"\n");
+        
+        for(double i=10000;i<20000;i=i+125){
+            double segmentPoint = i/10000;                        
+            analiticalResult=0.25*segmentPoint-0.075*Math.log1p(2*segmentPoint+0.3)-0.01125/(2*segmentPoint+0.3);          
+            jLabelAnaliticalResult.setText(analiticalResult.toString());
+            jTextAreaComparativeResult.append(segmentPoint+"\t"+actualResult.toString().substring(0,13)+"\t\t"+analiticalResult.toString().substring(0,13)+"\n");
+        }                 
+        jLabelAnaliticalResult.setText("0.20534708279");
+        
+                // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        jLabelResult.setText("");
+        jTextAreaComparativeResult.setText("");
+        jLabelActualResult.setText("");
+        jLabelAnaliticalResult.setText("");
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
@@ -346,7 +358,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -355,7 +366,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelResult;
+    private javax.swing.JLabel jLabelActualResult;
+    private javax.swing.JLabel jLabelAnaliticalResult;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -367,6 +379,6 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaComparativeResult;
     // End of variables declaration//GEN-END:variables
 }
