@@ -25,8 +25,11 @@ public double run(double a, double b, int n )
    return result;
 }    
 public double calculateFunction(double x){
-    return Math.pow(x, 2)/Math.pow((2*x+0.3), 2);
-    
+    return Math.pow(x, 2)/Math.pow((2*x+0.3), 2);    
+}
+
+public Double calculateFault(Double actualResult,Double analiticalResult){
+return (Math.abs(actualResult-analiticalResult)/analiticalResult)*100;
 }
         
 }

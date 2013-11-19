@@ -37,6 +37,7 @@ public class MainGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaComparativeResult = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,10 +66,14 @@ public class MainGUI extends javax.swing.JFrame {
         jLabelActualResult = new javax.swing.JLabel();
         jLabelAnaliticalResult = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel14 = new javax.swing.JLabel();
+        jLabelFault = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+
+        jLabel13.setText("jLabel13");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,21 +192,33 @@ public class MainGUI extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setText("Погрешность метода");
+
+        jLabelFault.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelActualResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelAnaliticalResult, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelActualResult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelAnaliticalResult, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelFault)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -222,7 +239,11 @@ public class MainGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jLabelAnaliticalResult)))
+                            .addComponent(jLabelAnaliticalResult))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabelFault)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -289,17 +310,18 @@ public class MainGUI extends javax.swing.JFrame {
     RectangleMethod rectangleMethod = new RectangleMethod();
         Double actualResult = rectangleMethod.run(1, 2, 80);
         jLabelActualResult.setText(actualResult.toString().substring(0,13));        
-        Double analiticalResult=0.25*2-0.075*Math.log1p(2*2+0.3)-0.01125/(2*2+0.3);            
+        Double lowerAnaliticalResult=0.25*1-0.075*Math.log1p(2*1+0.3)-0.01125/(2*1+0.3);            
         jTextAreaComparativeResult.append("Точка отрезка"+"\t"+"Фактический результат"+"\t"+"Аналитический результат"+"\n");
-        
-        for(double i=10000;i<20000;i=i+125){
+        Double analiticalResult=0.0;
+        for(double i=10000;i<=20000;i=i+125){
             double segmentPoint = i/10000;                        
             analiticalResult=0.25*segmentPoint-0.075*Math.log1p(2*segmentPoint+0.3)-0.01125/(2*segmentPoint+0.3);          
             jLabelAnaliticalResult.setText(analiticalResult.toString());
             jTextAreaComparativeResult.append(segmentPoint+"\t"+actualResult.toString().substring(0,13)+"\t\t"+analiticalResult.toString().substring(0,13)+"\n");
         }                 
-        jLabelAnaliticalResult.setText("0.20534708279");
-        
+        Double middleAnaliticalResult= analiticalResult-lowerAnaliticalResult;
+        jLabelAnaliticalResult.setText(middleAnaliticalResult.toString().substring(0,13));
+        jLabelFault.setText(rectangleMethod.calculateFault(actualResult, middleAnaliticalResult).toString().substring(0, 4));
                 // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1MouseClicked
 
@@ -307,6 +329,7 @@ public class MainGUI extends javax.swing.JFrame {
         jTextAreaComparativeResult.setText("");
         jLabelActualResult.setText("");
         jLabelAnaliticalResult.setText("");
+        jLabelFault.setText("");
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
@@ -358,6 +381,8 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -368,6 +393,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelActualResult;
     private javax.swing.JLabel jLabelAnaliticalResult;
+    private javax.swing.JLabel jLabelFault;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
