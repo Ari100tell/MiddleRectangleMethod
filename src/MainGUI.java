@@ -32,13 +32,7 @@ public class MainGUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaComparativeResult = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        try {
-            jPanel1 = (javax.swing.JPanel) java.beans.Beans.instantiate(getClass().getClassLoader(), "MainGUI_jPanel1");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
